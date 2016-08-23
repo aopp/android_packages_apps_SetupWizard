@@ -27,7 +27,7 @@
         android:id="@+id/brand_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/brand"
+        android:src="@drawable/aopp"
         android:paddingLeft="@dimen/header_logo_margin_left"
         android:paddingBottom="@dimen/header_logo_margin_bottom"
         android:layout_alignParentTop="true"/>
