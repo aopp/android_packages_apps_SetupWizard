@@ -473,9 +473,7 @@ public class SetupWizardActivity extends Activity implements SetupDataCallbacks,
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             Intent launcherIntent = new Intent(Intent.ACTION_MAIN);
-            Intent installerIntent = new Intent("com.pwnieexpress.android.pxinstaller.action.PROVISION");
             launcherIntent.addCategory(Intent.CATEGORY_HOME);
-            mActivity.sendBroadcast(installerIntent);
             mActivity.startActivity(launcherIntent);
             mActivity.finish();
         }
