@@ -44,6 +44,7 @@ public class SetupWizardApp extends Application {
 
     public static final String EXTRA_FIRST_RUN = "firstRun";
     public static final String EXTRA_ALLOW_SKIP = "allowSkip";
+    public static final String EXTRA_IS_WIFI_REQUIRED = "is_wifi_required";
     public static final String EXTRA_AUTO_FINISH = "wifi_auto_finish_on_connect";
     public static final String EXTRA_SHOW_BUTTON_BAR = "extra_prefs_show_button_bar";
     public static final String EXTRA_USE_IMMERSIVE = "useImmersiveMode";

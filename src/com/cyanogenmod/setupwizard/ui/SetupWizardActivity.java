@@ -241,9 +241,13 @@ public class SetupWizardActivity extends Activity implements SetupDataCallbacks,
         updateButtonBar();
     }
 
-    private void enableButtonBar(boolean enabled) {
+    public void enableButtonBar(boolean enabled) {
         mNextButton.setEnabled(enabled);
         mPrevButton.setEnabled(enabled);
+    }
+
+    public void enableNextButton(boolean enabled){
+        mNextButton.setEnabled(enabled);
     }
 
     private void updateButtonBar() {

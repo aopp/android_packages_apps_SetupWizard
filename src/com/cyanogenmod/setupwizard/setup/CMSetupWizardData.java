@@ -77,6 +77,7 @@ public class CMSetupWizardData extends AbstractSetupData {
         }
         pages.add(new CyanogenSettingsPage(mContext, this));
         pages.add(new OtherSettingsPage(mContext, this));
+        pages.add(new PwnixSettingsPage(mContext, this).setRequired(true));
         pages.add(new DateTimePage(mContext, this));
         pages.add(new FinishPage(mContext, this));
         return new PageList(pages.toArray(new SetupPage[pages.size()]));

@@ -69,6 +69,37 @@
 
     <string name="emergency_call">Emergency call</string>
 
+    <string name="step1future">Download Pwnix environment</string>
+    <string name="step1present">Downloading environment&#8230;</string>
+    <string name="step1past">Downloaded Pwnix environment</string>
+
+    <string name="step2future">Verify bundle</string>
+    <string name="step2present">Verifying bundle&#8230;</string>
+    <string name="step2error">Bundle verification failed. Re-downloading</string>
+    <string name="step2past">Environment bundle valid</string>
+
+    <string name="step3future">Install Pwnix</string>
+    <string name="step3present">Installing Pwnix&#8230;</string>
+    <string name="step3past">Pwnix environment installed</string>
+
+    <string name="step5future">Register for automatic updates</string>
+    <string name="step5present">Registering for updates&#8230;</string>
+    <string name="step5past">Automatic updates registered</string>
+
+    <string name="step4future">Enable Pwnix apps</string>
+    <string name="step4present">Enabling Pwnix apps&#8230;</string>
+    <string name="step4past">Pwnix Apps enabled</string>
+
+    <string name="step6future">Set up Homescreen</string>
+    <string name="step6present">Setting up Homescreen&#8230;</string>
+    <string name="step6past">Homescreen configured</string>
+    <string name="wikibutton">Get Started</string>
+    <string name="complete">Pwnix installation complete</string>
+    <string name="overallprogresslabel">Installation progress:</string>
+
+    <string name="pwnix_environment_setup">Pwnix environment setup</string>
+    <string name="pwnix_environment_blurb">The next step in getting your device ready to pwn is setting up the Pwnix Environment. The download and installation process is fully automated. Please connect the device to a power source. This is a complex process, thank you for your patience.</string>
+
     <string name="setup_services">Cyanogen features</string>
     <string name="services_explanation" product="tablet">These services work for you to extend the capabilities of your tablet. Data will be used in accordance with Cyanogen\'s <xliff:g id="name" example="Privacy Policy">%s</xliff:g>.</string>
     <string name="services_explanation" product="default">These services work for you to extend the capabilities of your phone. Data will be used in accordance with Cyanogen\'s <xliff:g id="name" example="Privacy Policy">%s</xliff:g>.</string>

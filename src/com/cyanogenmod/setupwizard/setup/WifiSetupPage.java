@@ -245,7 +245,8 @@ public class WifiSetupPage extends SetupPage {
             intent.setComponent(SetupWizardUtils.mTvwifisettingsActivity);
         }
         intent.putExtra(SetupWizardApp.EXTRA_FIRST_RUN, true);
-        intent.putExtra(SetupWizardApp.EXTRA_ALLOW_SKIP, true);
+        intent.putExtra(SetupWizardApp.EXTRA_ALLOW_SKIP, false);
+        intent.putExtra(SetupWizardApp.EXTRA_IS_WIFI_REQUIRED,true);
         intent.putExtra(SetupWizardApp.EXTRA_USE_IMMERSIVE, true);
         intent.putExtra(SetupWizardApp.EXTRA_THEME, SetupWizardApp.EXTRA_MATERIAL_LIGHT);
         intent.putExtra(SetupWizardApp.EXTRA_AUTO_FINISH, false);
