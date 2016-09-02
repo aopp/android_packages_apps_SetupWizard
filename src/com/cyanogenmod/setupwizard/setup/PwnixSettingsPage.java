@@ -149,7 +149,7 @@ public class PwnixSettingsPage extends SetupPage {
         /** CM saving their prefs **/
     }
 
-    public static class PwnixSetupFragment extends SetupPageFragment {
+public static class PwnixSetupFragment extends SetupPageFragment {
 
         private static TextView step1Label, step2Label, step3Label, step4Label, step5Label, step6Label, fragmentBlurb; // Step Labels
 
@@ -200,12 +200,8 @@ public class PwnixSettingsPage extends SetupPage {
             Log.d("init page", this.toString());
 
              activity = (SetupWizardActivity) getActivity();
-
-
             //Need to check shared prefs to see if provisioned.
-
             //if provisioned set state to SETUP otherwise ignore because this may be called mid install and fragmentState should be accurate
-
             gatherUIElements();
             handleUIState();
             loadReceiver();
@@ -246,6 +242,7 @@ public class PwnixSettingsPage extends SetupPage {
 
         @Override
         public void onPause() {
+            unloadReceiver();
 
             if (errorDialog != null) {
                 errorDialog.dismiss();
@@ -289,7 +286,7 @@ public class PwnixSettingsPage extends SetupPage {
             //activity =null;
             startIcon = null;
             dlProgress = null;
-            broadcastReceiver = null;
+            //broadcastReceiver = null;
             super.onDestroyView();
             // dialog=null;
 
@@ -333,42 +330,10 @@ public class PwnixSettingsPage extends SetupPage {
             //activity =null;
             startIcon = null;
             dlProgress = null;
-            broadcastReceiver = null;
+            //broadcastReceiver = null;
             //dialog=null;
             super.onDestroy();
         }
-
-        /**
-         private void showWikiDialog(Context context){
-         //not allowed in a privilaged application context (i.e. SetupWizard lol)
-         //Instead may offer checkbox to open browser to wiki while they install google services
-
-         AlertDialog.Builder wikiAlert = new AlertDialog.Builder(context);
-         wikiAlert.setTitle("AOPP Wiki");
-
-
-         WebView wv = new WebView(context);
-         wv.getSettings().setJavaScriptEnabled(true);
-         wv.loadUrl("https://wiki.pwnieexpress.com/index.php/Getting_Started");
-         wv.setWebViewClient(new WebViewClient(){
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        view.loadUrl(url);
-        return true;
-        }
-        });
-
-         wikiAlert.setView(wv);
-         wikiAlert.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int id) {
-        dialog.dismiss();
-        }
-        });
-         wikiAlert.show();
-         }
-
-         **/
 
         private void handleUiNotStarted() {
             step1Label.setPadding(15,0,0,0);
@@ -412,8 +377,6 @@ public class PwnixSettingsPage extends SetupPage {
             overallProgressbar.setVisibility(View.GONE);
             overallProgressLabel.setVisibility(View.GONE);
 
-
-            /** CHANGES MADE BELOW AROUND START BUTTON. FIX **/
             launchButton.setVisibility(View.VISIBLE);
             startIcon.setVisibility(View.VISIBLE);
             doneImageview.setVisibility(View.GONE);
@@ -1074,7 +1037,6 @@ public class PwnixSettingsPage extends SetupPage {
                 String words = extras.getString("stage");
                 if (words != null) {
                     Toast.makeText(context, "Received: " + words, Toast.LENGTH_SHORT).show();
-
                 }
 
                 int progress = extras.getInt("progress");
@@ -1097,6 +1059,9 @@ public class PwnixSettingsPage extends SetupPage {
                 } catch (java.lang.IllegalArgumentException e) {
                     //the intent extra contains a string that is not a PwnixInstallState
                 }
+            } else {
+                //fragment is not on the screen
+                Log.d("Received WHILE NOT ON SCREEN", "SOMETHING");
             }
         }
     }
