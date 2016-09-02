@@ -21,20 +21,18 @@
 
 
     <include layout="@layout/header_condensed"/>
-    <!--
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+       <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:paddingTop="26dp"
-        android:paddingLeft="26dp"
-        android:paddingRight="14dp"
-        android:paddingBottom="20dp">
+        android:paddingTop="@dimen/content_margin_top"
+        android:paddingLeft="@dimen/content_margin_left"
+        android:paddingRight="@dimen/content_margin_right"
+        android:paddingBottom="@dimen/content_margin_bottom">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
             android:id="@+id/mianContainer"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
@@ -44,11 +42,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/pwnix_environment_blurb"
+                android:textSize="15sp"
                 android:id="@+id/fragmentBlurb"
                 android:layout_gravity="center_horizontal"
-
-                android:layout_margin="15dp"
-                />
+                android:lineSpacingExtra="@dimen/setup_line_spacing"
+                android:paddingBottom="@dimen/summary_margin_bottom" />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -63,12 +61,13 @@
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="@string/wikibutton"
                     android:id="@+id/wikibutton"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
 
                 <ImageView
-                    android:layout_width="50dp"
+                    android:layout_width="50sp"
                     android:id="@+id/beginIcon"
-                    android:layout_height="50dp"
+                    android:layout_height="50sp"
                     android:layout_gravity="center"
                     android:paddingLeft="10dp" />
             </LinearLayout>
@@ -78,6 +77,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/overallprogresslabel"
+                android:textSize="15sp"
                 android:id="@+id/overallProgressLabel"
                 android:visibility="gone"
                 android:paddingTop="15dp" />
@@ -97,15 +97,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fadeScrollbars="false"
-                android:id="@+id/scrollView">
+                android:id="@+id/scrollView"
+                android:layout_marginTop="@dimen/content_margin_top">
 
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/linearLayout"
-                    android:baselineAligned="false"
-                    android:paddingTop="15dp">
+                    android:baselineAligned="false">
 
                     <RelativeLayout
                         android:layout_width="fill_parent"
@@ -118,6 +118,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/step1future"
                             android:id="@+id/step1"
+                            android:textSize="15sp"
                             android:layout_centerVertical="true"
                             android:layout_margin="5dp"
                             android:textColor="@color/done"
@@ -180,6 +181,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/step2future"
                             android:id="@+id/step2"
+                            android:textSize="15sp"
                             android:layout_centerVertical="true"
                             android:layout_margin="5dp"
                             android:textColor="@color/done"
@@ -220,6 +222,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/step3future"
                             android:id="@+id/step3"
+                            android:textSize="15sp"
                             android:layout_centerVertical="true"
                             android:layout_margin="5dp"
                             android:textColor="@color/done"
@@ -259,6 +262,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/step4future"
                             android:id="@+id/step4"
+                            android:textSize="15sp"
                             android:layout_centerVertical="true"
                             android:layout_margin="5dp"
                             android:textColor="@color/done"
@@ -298,6 +302,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/step5future"
                             android:id="@+id/step5"
+                            android:textSize="15sp"
                             android:layout_centerVertical="true"
                             android:layout_margin="5dp"
                             android:textColor="@color/done"
@@ -338,6 +343,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/step6future"
                             android:id="@+id/step6"
+                            android:textSize="15sp"
                             android:layout_centerVertical="true"
                             android:layout_margin="5dp"
                             android:clickable="false"
@@ -377,381 +383,6 @@
 
                 </LinearLayout>
             </ScrollView>
-
-
         </LinearLayout>
-
     </RelativeLayout>
---><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:paddingTop="@dimen/content_margin_top"
-    android:paddingLeft="@dimen/content_margin_left"
-    android:paddingRight="@dimen/content_margin_right"
-    android:paddingBottom="@dimen/content_margin_bottom">
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/mianContainer"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/pwnix_environment_blurb"
-            android:textSize="15sp"
-            android:id="@+id/fragmentBlurb"
-            android:layout_gravity="center_horizontal"
-            android:lineSpacingExtra="@dimen/setup_line_spacing"
-            android:paddingBottom="@dimen/summary_margin_bottom" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="clip_horizontal|clip_vertical"
-            android:layout_gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/wikibutton"
-                android:id="@+id/wikibutton"
-                android:layout_gravity="center"
-                android:visibility="gone" />
-
-            <ImageView
-                android:layout_width="50sp"
-                android:id="@+id/beginIcon"
-                android:layout_height="50sp"
-                android:layout_gravity="center"
-                android:paddingLeft="10dp" />
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/overallprogresslabel"
-            android:textSize="15sp"
-            android:id="@+id/overallProgressLabel"
-            android:visibility="gone"
-            android:paddingTop="15dp" />
-
-        <ProgressBar
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/overallProgress"
-            android:max="100"
-            android:progress="0"
-            android:visibility="gone"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="10dp" />
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fadeScrollbars="false"
-            android:id="@+id/scrollView"
-            android:layout_marginTop="@dimen/content_margin_top">
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/linearLayout"
-                android:baselineAligned="false">
-
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="0dp"
-                    android:id="@+id/DownloadRow">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/step1future"
-                        android:id="@+id/step1"
-                        android:textSize="15sp"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="5dp"
-                        android:textColor="@color/done"
-                        android:paddingLeft="15dp" />
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/dlprogresscontainer"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentTop="true">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/step1CheckMark"
-                            android:layout_centerVertical="true"
-                            android:layout_toEndOf="@+id/downloadProgress"
-                            android:visibility="gone"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_toRightOf="@+id/downloadProgress" />
-
-                        <ProgressBar
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/downloadProgress"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:indeterminate="true"
-                            android:layout_margin="5dp"
-                            android:layout_alignParentRight="true"
-                            android:visibility="gone"
-                            android:layout_centerVertical="true" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:id="@+id/dlProgress"
-                            android:visibility="gone"
-                            android:layout_alignLeft="@+id/downloadProgress"
-                            android:layout_alignStart="@+id/downloadProgress"
-                            android:paddingLeft="12dp"
-                            android:gravity="center_vertical"
-                            android:layout_centerVertical="true" />
-                    </RelativeLayout>
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="0dp"
-                    android:id="@+id/VerifyRow"
-                    android:paddingLeft="0dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/step2future"
-                        android:id="@+id/step2"
-                        android:textSize="15sp"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="5dp"
-                        android:textColor="@color/done"
-                        android:paddingLeft="15dp" />
-
-                    <ProgressBar
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/verifyProgress"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:indeterminate="true"
-                        android:layout_margin="5dp"
-                        android:layout_alignParentRight="true"
-                        android:visibility="gone" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/step2CheckMark"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/verifyProgress"
-                        android:visibility="gone"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_toRightOf="@+id/verifyProgress" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="0dp"
-                    android:id="@+id/InstallRow"
-                    android:paddingLeft="0dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/step3future"
-                        android:id="@+id/step3"
-                        android:textSize="15sp"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="5dp"
-                        android:textColor="@color/done"
-                        android:paddingLeft="15dp" />
-
-                    <ProgressBar
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/installProgress"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:indeterminate="true"
-                        android:layout_margin="5dp"
-                        android:layout_alignParentRight="true"
-                        android:visibility="gone" />
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/step3CheckMark"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/installProgress"
-                        android:visibility="gone"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_toRightOf="@+id/installProgress" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="0dp"
-                    android:id="@+id/RegisterRow"
-                    android:paddingLeft="0dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/step4future"
-                        android:id="@+id/step4"
-                        android:textSize="15sp"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="5dp"
-                        android:textColor="@color/done"
-                        android:paddingLeft="15dp" />
-
-                    <ProgressBar
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/registerProgress"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:indeterminate="true"
-                        android:layout_margin="5dp"
-                        android:layout_alignParentRight="true"
-                        android:visibility="gone" />
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/step4CheckMark"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/registerProgress"
-                        android:visibility="gone"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_toRightOf="@+id/registerProgress" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="0dp"
-                    android:id="@+id/EnableRow"
-                    android:paddingLeft="0dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/step5future"
-                        android:id="@+id/step5"
-                        android:textSize="15sp"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="5dp"
-                        android:textColor="@color/done"
-                        android:paddingLeft="15dp" />
-
-                    <ProgressBar
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/enableAppsProgress"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:indeterminate="true"
-                        android:layout_margin="5dp"
-                        android:layout_alignParentRight="true"
-                        android:visibility="gone" />
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/step5CheckMark"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/enableAppsProgress"
-                        android:visibility="gone"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_toRightOf="@+id/enableAppsProgress" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="0dp"
-                    android:id="@+id/HomescreenRow"
-                    android:paddingLeft="0dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/step6future"
-                        android:id="@+id/step6"
-                        android:textSize="15sp"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="5dp"
-                        android:clickable="false"
-                        android:textColor="@color/done"
-                        android:paddingLeft="15dp" />
-
-                    <ProgressBar
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/homescreenProgress"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:indeterminate="true"
-                        android:layout_margin="5dp"
-                        android:layout_alignParentRight="true"
-                        android:visibility="gone" />
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/step6CheckMark"
-                        android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/homescreenProgress"
-                        android:visibility="gone"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_toRightOf="@+id/homescreenProgress" />
-                </RelativeLayout>
-
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:id="@+id/doneImage"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="25dp"
-                    android:visibility="gone" />
-
-
-            </LinearLayout>
-        </ScrollView>
-
-        <!--<ListView
-            android:id="@+id/fragmentListView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/fragmentTitle"/> -->
-    </LinearLayout>
-
-</RelativeLayout>
-
 </LinearLayout>
