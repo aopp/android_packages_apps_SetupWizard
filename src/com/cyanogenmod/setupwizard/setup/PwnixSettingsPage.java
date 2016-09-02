@@ -21,7 +21,8 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 
-import android.content.BroadcastReceiver;
+import android.support.v4.content.WakefulBroadcastReceiver;
+//import android.content.BroadcastReceiver;
 import android.content.Context;
 
 
@@ -207,7 +208,6 @@ public class PwnixSettingsPage extends SetupPage {
 
             gatherUIElements();
             handleUIState();
-
             loadReceiver();
         }
 
@@ -246,8 +246,6 @@ public class PwnixSettingsPage extends SetupPage {
 
         @Override
         public void onPause() {
-
-            unloadReceiver();
 
             if (errorDialog != null) {
                 errorDialog.dismiss();
@@ -1061,7 +1059,7 @@ public class PwnixSettingsPage extends SetupPage {
     }
 
 
-    public static class MyReceiver extends BroadcastReceiver {
+    public static class MyReceiver extends WakefulBroadcastReceiver {
 
         private PwnixSetupFragment fragment;
 
