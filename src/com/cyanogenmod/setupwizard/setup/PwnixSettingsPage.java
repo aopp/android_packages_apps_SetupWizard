@@ -21,8 +21,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 
-import android.support.v4.content.WakefulBroadcastReceiver;
-//import android.content.BroadcastReceiver;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 
 
@@ -242,8 +241,7 @@ public static class PwnixSetupFragment extends SetupPageFragment {
 
         @Override
         public void onPause() {
-            unloadReceiver();
-
+    
             if (errorDialog != null) {
                 errorDialog.dismiss();
             }
@@ -253,6 +251,7 @@ public static class PwnixSetupFragment extends SetupPageFragment {
         @Override
         public void onDestroyView() {
             Log.d("ondestroyView","called");
+            unloadReceiver();
             step1Label = null;
             step2Label = null;
             step3Label = null;
@@ -1022,7 +1021,7 @@ public static class PwnixSetupFragment extends SetupPageFragment {
     }
 
 
-    public static class MyReceiver extends WakefulBroadcastReceiver {
+    public static class MyReceiver extends BroadcastReceiver {
 
         private PwnixSetupFragment fragment;
 
@@ -1032,36 +1031,35 @@ public static class PwnixSetupFragment extends SetupPageFragment {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (fragment.isAdded()) { // make sure the fragment is attached before doing anything
-                Bundle extras = intent.getExtras();
-                String words = extras.getString("stage");
-                if (words != null) {
-                    Toast.makeText(context, "Received: " + words, Toast.LENGTH_SHORT).show();
-                }
-
-                int progress = extras.getInt("progress");
-
-                // update progress
-                if (progress < 100 && progress >= 0) {
-                    fragment.updateDLProgress(progress);
-                }
-
-                try {
+            if ( fragment != null ) {
+                if (fragment.isAdded()) { // make sure the fragment is attached before doing anything
+                    Bundle extras = intent.getExtras();
+                    String words = extras.getString("stage");
                     if (words != null) {
-                        PwnixSetupFragment.PwnixInstallState replyState = PwnixSetupFragment.PwnixInstallState.valueOf(words.toUpperCase());
-
-                        if(fragment.fragmentState == PwnixSetupFragment.PwnixInstallState.VERIFICATION_ERROR && replyState== PwnixSetupFragment.PwnixInstallState.DOWNLOADING){
-                            return; // ignore
-                        }
-                        fragment.setState(replyState);
-                        fragment.updateUI();
+                        Toast.makeText(context, "Received: " + words, Toast.LENGTH_SHORT).show();
                     }
-                } catch (java.lang.IllegalArgumentException e) {
-                    //the intent extra contains a string that is not a PwnixInstallState
-                }
-            } else {
-                //fragment is not on the screen
-                Log.d("Received WHILE NOT ON SCREEN", "SOMETHING");
+
+                    int progress = extras.getInt("progress");
+
+                    // update progress
+                    if (progress < 100 && progress >= 0) {
+                        fragment.updateDLProgress(progress);
+                    }
+
+                    try {
+                        if (words != null) {
+                            PwnixSetupFragment.PwnixInstallState replyState = PwnixSetupFragment.PwnixInstallState.valueOf(words.toUpperCase());
+
+                            if(fragment.fragmentState == PwnixSetupFragment.PwnixInstallState.VERIFICATION_ERROR && replyState== PwnixSetupFragment.PwnixInstallState.DOWNLOADING){
+                                return; // ignore
+                            }
+                            fragment.setState(replyState);
+                            fragment.updateUI();
+                        }
+                    } catch (java.lang.IllegalArgumentException e) {
+                        //the intent extra contains a string that is not a PwnixInstallState
+                    }
+                } 
             }
         }
     }
