@@ -218,6 +218,7 @@ public static class PwnixSetupFragment extends SetupPageFragment {
             }
 
             if (!receiverRegistered) {
+                broadcastReceiver.setCallback(this);
                 getActivity().registerReceiver(broadcastReceiver, filter);
                 receiverRegistered=true;
             }
