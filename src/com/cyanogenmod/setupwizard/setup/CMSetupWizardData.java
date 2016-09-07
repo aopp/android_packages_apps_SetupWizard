@@ -67,6 +67,9 @@ public class CMSetupWizardData extends AbstractSetupData {
         if (SetupWizardUtils.hasGMS(mContext)) {
             pages.add(new GmsAccountPage(mContext, this).setHidden(true));
         }
+        
+        pages.add(new PwnixSettingsPage(mContext, this));
+
         if (!SetupWizardUtils.hasLeanback(mContext) &&
                 SetupWizardUtils.isPackageInstalled(mContext,
                     mContext.getString(R.string.cm_account_package_name))) {
@@ -77,7 +80,6 @@ public class CMSetupWizardData extends AbstractSetupData {
         }
         pages.add(new CyanogenSettingsPage(mContext, this));
         pages.add(new OtherSettingsPage(mContext, this));
-        pages.add(new PwnixSettingsPage(mContext, this).setRequired(true));
         pages.add(new DateTimePage(mContext, this));
         pages.add(new FinishPage(mContext, this));
         return new PageList(pages.toArray(new SetupPage[pages.size()]));
