@@ -16,6 +16,8 @@
 
 package com.cyanogenmod.setupwizard.ui;
 
+import android.util.Log;
+
 import android.animation.Animator;
 import android.app.Activity;
 import android.app.WallpaperManager;
@@ -214,6 +216,16 @@ public class SetupWizardActivity extends Activity implements SetupDataCallbacks,
         }
     }
 
+    public void doLoadPreviousPage(){
+        mSetupData.onPreviousPage();
+    }
+
+    public void rewindToWifi(){
+        while(!(isCurrentPage(mSetupData.getPage("WifiSetupPage")))){
+            Log.d("rewind","page");
+            doLoadPreviousPage();
+        }
+    }
     @Override
     public void onNextPage() {
         Page page = mSetupData.getCurrentPage();

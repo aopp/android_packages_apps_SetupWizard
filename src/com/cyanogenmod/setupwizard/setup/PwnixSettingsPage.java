@@ -713,11 +713,13 @@ public static class PwnixSetupFragment extends SetupPageFragment {
                     if(errorDialog == null || !errorDialog.isShowing()) {
                         Log.d("CREATE CONNERR","+++++++++");
                         String ssid= PwnixSetupFragment.getCurrentSsid(getThis().getActivity());
+                        String message = "We are not able to communicate with the server to download the Pwnix environment bundle.\n\nPlease ensure the network "+ssid+" has internet connectivity. Otherwise go back now and connect to a different network";
                         if(ssid == null){
-                            //special?
+                            //special
+                            message = "We are not able to communicate with the server to download the Pwnix environment bundle.\n\nPlease connect to a working wireless network";
                         }
                         //Create Dialog
-                        errorDialog = new AlertDialog.Builder(getActivity()).setTitle("Network Error").setMessage("We are not able to communicate with the server to download the Pwnix environment bundle.\n\nPlease ensure the network "+ssid+" has internet connectivity. Otherwise go back now and connect to a different network").setPositiveButton("OK",
+                        errorDialog = new AlertDialog.Builder(getActivity()).setTitle("Network Error").setMessage(message).setPositiveButton("OK",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog,
                                                         int which) {
@@ -728,7 +730,10 @@ public static class PwnixSetupFragment extends SetupPageFragment {
                                      //cant go forward only backwards if you havent started
                                      ((SetupWizardActivity)getActivity()).enableNextButton(false);
 
-                                        getThis().updateUI();
+                                      getThis().updateUI();
+
+                                        ((SetupWizardActivity)getActivity()).rewindToWifi();
+                                        
                                     }
                                 }).setCancelable(false).create();
                         //Dialogs break immersive view - ty for the hack stackoverflow https://stackoverflow.com/questions/22794049/how-to-maintain-the-immersive-mode-in-dialogs
