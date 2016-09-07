@@ -23,7 +23,7 @@ import android.app.FragmentManager;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
-
+import android.content.SharedPreferences;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -194,16 +194,46 @@ public static class PwnixSetupFragment extends SetupPageFragment {
 
         private boolean dismissed = false;
 
+        private static final String PREFS = "provisioning_state";
+
+        private static final String PREFS_KEY = "provisioned";
+
+        private static boolean installationStateChecked = false;
+
+        private static boolean stateSaved = false;
+
         @Override
         protected void initializePage() {
-            Log.d("init page", this.toString());
+            Log.d("INIT CALLED", this.toString());
 
-             activity = (SetupWizardActivity) getActivity();
-            //Need to check shared prefs to see if provisioned.
-            //if provisioned set state to SETUP otherwise ignore because this may be called mid install and fragmentState should be accurate
+            activity = (SetupWizardActivity) getActivity();
             gatherUIElements();
-            handleUIState();
+
+            if(!installationStateChecked){
+                checkProvisioningStatus();
+                installationStateChecked=true;
+            }
+
+            //handleUIState(); handled already by onResume
             loadReceiver();
+        }
+
+        public void checkProvisioningStatus(){
+             Log.d("CHECKING SAVED STATE", "-------------");
+            SharedPreferences prefs = getActivity().getSharedPreferences(PREFS, Context.MODE_PRIVATE); 
+            boolean restoreCompletedState = prefs.getBoolean(PREFS_KEY, false);
+            if (restoreCompletedState) {
+             fragmentState = PwnixInstallState.SETUP;
+             handleUIState();
+             Log.d("PROVISIONED", "UPDATING UI");
+            }
+        }
+
+        private void saveProvisionedState(){
+            SharedPreferences.Editor editor = getActivity().getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit();
+            editor.putBoolean(PREFS_KEY, true);
+            editor.apply();
+            Log.d("SAVED STATE", "++++++++++++++++++++++");
         }
 
         public void loadReceiver() {
@@ -213,7 +243,7 @@ public static class PwnixSetupFragment extends SetupPageFragment {
             if (broadcastReceiver==null) { // may break this
                 broadcastReceiver = new MyReceiver();
                 broadcastReceiver.setCallback(this);
-                Log.d("broadcastR null", "creating");
+                Log.d("RECEIVER NULL", "CREATING");
                 receiverRegistered=false; //it was null -- it aint registered
             }
 
@@ -234,15 +264,14 @@ public static class PwnixSetupFragment extends SetupPageFragment {
         @Override
         public void onResume() {
             super.onResume();
-
+             Log.d("ONRESUME","CALLLED");
             loadReceiver();
-            //check shared prefs the same as init
             handleUIState(); //handle user putting screen to sleep mid install and waking up
         }
 
         @Override
         public void onPause() {
-    
+             Log.d("ONPAUSE","CALLLED");
             if (errorDialog != null) {
                 errorDialog.dismiss();
             }
@@ -251,7 +280,7 @@ public static class PwnixSetupFragment extends SetupPageFragment {
 
         @Override
         public void onDestroyView() {
-            Log.d("ondestroyView","called");
+            Log.d("ONDESTROYVIEW","CALLLED");
             unloadReceiver();
             step1Label = null;
             step2Label = null;
@@ -294,7 +323,7 @@ public static class PwnixSetupFragment extends SetupPageFragment {
 
         @Override
         public void onDestroy() {
-            Log.d("ondestroy","called");
+            Log.d("ONDESTROY","CALLED");
 
             unloadReceiver();
             step1Label = null;
@@ -960,6 +989,11 @@ public static class PwnixSetupFragment extends SetupPageFragment {
                     ((SetupWizardActivity)getActivity()).enableButtonBar(true);
 
                     //write to shared prefs because process is done they could leave and come back for a brief amount of time.
+
+                if(!stateSaved){
+                    saveProvisionedState();
+                    stateSaved=true;
+                }
                     break;
             }
         }
