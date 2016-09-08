@@ -246,7 +246,9 @@ public class WifiSetupPage extends SetupPage {
         }
         intent.putExtra(SetupWizardApp.EXTRA_FIRST_RUN, true);
         intent.putExtra(SetupWizardApp.EXTRA_ALLOW_SKIP, false);
-        intent.putExtra(SetupWizardApp.EXTRA_IS_WIFI_REQUIRED,true);
+        //intent.putExtra(SetupWizardApp.EXTRA_IS_WIFI_REQUIRED,true);
+        //Attempt to fence into wifi or SIM
+        intent.putExtra(SetupWizardApp.EXTRA_IS_NETWORK_REQUIRED, true);
         intent.putExtra(SetupWizardApp.EXTRA_USE_IMMERSIVE, true);
         intent.putExtra(SetupWizardApp.EXTRA_THEME, SetupWizardApp.EXTRA_MATERIAL_LIGHT);
         intent.putExtra(SetupWizardApp.EXTRA_AUTO_FINISH, false);
