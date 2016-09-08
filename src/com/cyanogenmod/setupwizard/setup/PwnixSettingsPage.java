@@ -410,7 +410,7 @@ public static class PwnixSetupFragment extends SetupPageFragment {
             startIcon.setVisibility(View.VISIBLE);
             doneImageview.setVisibility(View.GONE);
 
-            startIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_system_update_black_24dp));
+            startIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_phone_install_pwnix));
             startIcon.setClickable(true);
             startIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
