@@ -173,7 +173,7 @@ public static class PwnixSetupFragment extends SetupPageFragment {
          * PwnixInstallState
          * Defines the states/steps of the Pwnix Environment Setup
          */
-        public enum PwnixInstallState { CONNECTION_ERROR, POWER_ERROR, NOTSTARTED, DOWNLOADING, DOWNLOADED, VERIFICATION_ERROR, VERIFYING, VERIFIED, INSTALLING, INSTALLED, REGISTERING, REGISTERED, PREPARING, PREPARED, SETTINGUP, SETUP }
+        public enum PwnixInstallState { CONNECTION_ERROR, POWER_ERROR, NOTSTARTED, DOWNLOADING, DOWNLOADED, VERIFICATION_ERROR, VERIFYING, VERIFIED, INSTALLING, INSTALLED, REGISTERING, REGISTERED, PREPARING, PREPARED, SETTINGUP, PROVISIONED }
 
         /**
          * fragmentState - holds application state - used to maintain UI across orientation change, etc
@@ -223,7 +223,7 @@ public static class PwnixSetupFragment extends SetupPageFragment {
             SharedPreferences prefs = getActivity().getSharedPreferences(PREFS, Context.MODE_PRIVATE); 
             boolean restoreCompletedState = prefs.getBoolean(PREFS_KEY, false);
             if (restoreCompletedState) {
-             fragmentState = PwnixInstallState.SETUP;
+             fragmentState = PwnixInstallState.PROVISIONED;
              handleUIState();
              Log.d("PROVISIONED", "UPDATING UI");
             }
@@ -419,7 +419,7 @@ public static class PwnixSetupFragment extends SetupPageFragment {
                     //fragmentState=PwnixInstallState.DOWNLOADING;
                     //handleUIState();
 
-                    getActivity().sendBroadcast(new Intent().setAction("com.pwnieexpress.android.pxinstaller.action.START_PROVISION"));
+                    getActivity().sendBroadcast(new Intent().setAction("com.pwnieexpress.android.pxinstaller.action.PROVISION"));
                     activity.enableButtonBar(false);
 
 
@@ -441,7 +441,7 @@ public static class PwnixSetupFragment extends SetupPageFragment {
                     // fragmentState=PwnixInstallState.DOWNLOADING;
                     // handleUIState();
 
-                    getActivity().sendBroadcast(new Intent().setAction("com.pwnieexpress.android.pxinstaller.action.START_PROVISION"));
+                    getActivity().sendBroadcast(new Intent().setAction("com.pwnieexpress.android.pxinstaller.action.PROVISION"));
                     activity.enableButtonBar(false);
 
 
@@ -961,7 +961,7 @@ public static class PwnixSetupFragment extends SetupPageFragment {
                     setOverallProgressbar(99);
                     startStep(6);
                     break;
-                case SETUP: // finish step 6
+                case PROVISIONED: // finish step 6
                     setOverallProgressbar(100);
                     finishStep(6);
 
