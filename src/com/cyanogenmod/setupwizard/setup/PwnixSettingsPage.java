@@ -173,7 +173,7 @@ public static class PwnixSetupFragment extends SetupPageFragment {
          * PwnixInstallState
          * Defines the states/steps of the Pwnix Environment Setup
          */
-        public enum PwnixInstallState { CONNECTION_ERROR, POWER_ERROR, NOTSTARTED, DOWNLOADING, DOWNLOADED, VERIFICATION_ERROR, VERIFYING, VERIFIED, INSTALLING, INSTALLED, REGISTERING, REGISTERED, PREPARING, PREPARED, SETTINGUP, PROVISIONED }
+        public enum PwnixInstallState { WIFI_ERROR, CONNECTION_ERROR, POWER_ERROR, NOTSTARTED, DOWNLOADING, DOWNLOADED, VERIFICATION_ERROR, VERIFYING, VERIFIED, INSTALLING, INSTALLED, REGISTERING, REGISTERED, PREPARING, PREPARED, SETTINGUP, PROVISIONED }
 
         /**
          * fragmentState - holds application state - used to maintain UI across orientation change, etc
@@ -214,7 +214,6 @@ public static class PwnixSetupFragment extends SetupPageFragment {
                 installationStateChecked=true;
             }
 
-            //handleUIState(); handled already by onResume
             loadReceiver();
         }
 
@@ -738,6 +737,8 @@ public static class PwnixSetupFragment extends SetupPageFragment {
         public void showAlert(PwnixInstallState error){
             Log.d("ShowAlert","Called");
             switch(error){
+                case WIFI_ERROR:
+                    break;
                 case CONNECTION_ERROR:
                     if(errorDialog == null || !errorDialog.isShowing()) {
                         Log.d("CREATE CONNERR","+++++++++");
@@ -812,7 +813,6 @@ public static class PwnixSetupFragment extends SetupPageFragment {
                     }
                     break;
                 case VERIFICATION_ERROR:
-
                     if(!dismissed) {//because this is a state we will stay in we need this flag to not spam them
                         if (errorDialog == null || !errorDialog.isShowing()) {
                             Log.d("CREATE CONNERR", "+++++++++");
@@ -867,6 +867,11 @@ public static class PwnixSetupFragment extends SetupPageFragment {
 
 
             switch(fragmentState) {
+                case WIFI_ERROR:
+                    handleUiNotStarted();
+                    animationRan=false;
+                    showAlert(PwnixInstallState.WIFI_ERROR);
+                    break;
                 case CONNECTION_ERROR:
                     handleUiNotStarted();
                     animationRan=false;
