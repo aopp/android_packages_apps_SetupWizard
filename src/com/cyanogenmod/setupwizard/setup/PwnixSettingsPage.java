@@ -740,12 +740,50 @@ public static class PwnixSetupFragment extends SetupPageFragment {
             Log.d("ShowAlert","Called");
             switch(error){
                 case WIFI_ERROR:
+            String message = "This bundle is very large. \n\nTo avoid potential delays or extra data usage charges, use Wi-Fi only. ";
+
+            if (errorDialog == null ||!errorDialog.isShowing()) {
+                errorDialog = new AlertDialog.Builder(getActivity()).setTitle("Downloading a large bundle").setMessage(message).setPositiveButton("WIFI",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                               getThis().setState(PwnixSetupFragment.PwnixInstallState.NOTSTARTED);
+                                 ((SetupWizardActivity)getActivity()).rewindToWifi();
+                                Log.d("LAUNCHING WIFI", "WIFIERROR");
+                                dialog.dismiss();
+
+                            }
+                        }).setNegativeButton("USE DATA", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //send broadcast with data flag
+                        getThis().setState(PwnixSetupFragment.PwnixInstallState.NOTSTARTED);
+                        getActivity().sendBroadcast(new Intent().putExtra("DATA_USAGE", true).setAction("com.pwnieexpress.android.pxinstaller.action.PROVISION"));
+                        Log.d("LAUNCHING PROVISION", "WIFIERROR");
+                        dialogInterface.dismiss();
+                    }
+                }).setCancelable(false).create();
+
+                         errorDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+
+                        //Show the dialog!
+                        errorDialog.show();
+
+                        //Set the dialog to immersive
+                        errorDialog.getWindow().getDecorView().setSystemUiVisibility(
+                                (getActivity()).getWindow().getDecorView().getSystemUiVisibility());
+
+                        //Clear the not focusable flag from the window
+                        errorDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+
+            } 
+
                     break;
                 case CONNECTION_ERROR:
                     if(errorDialog == null || !errorDialog.isShowing()) {
                         Log.d("CREATE CONNERR","+++++++++");
                         String ssid= PwnixSetupFragment.getCurrentSsid(getThis().getActivity());
-                        String message = "We are not able to communicate with the server to download the Pwnix environment bundle.\n\nPlease ensure the network "+ssid+" has internet connectivity. Otherwise go back now and connect to a different network";
+                       message = "We are not able to communicate with the server to download the Pwnix environment bundle.\n\nPlease ensure the network "+ssid+" has internet connectivity. Otherwise go back now and connect to a different network";
                         if(ssid == null){
                             //special
                             message = "We are not able to communicate with the server to download the Pwnix environment bundle.\n\nPlease connect to a working wireless network";
@@ -755,16 +793,16 @@ public static class PwnixSetupFragment extends SetupPageFragment {
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog,
                                                         int which) {
-                                        getThis().setState(PwnixSetupFragment.PwnixInstallState.NOTSTARTED);
+                                    getThis().setState(PwnixSetupFragment.PwnixInstallState.NOTSTARTED);
 
                                      //You shall not pass
                                      ((SetupWizardActivity)getActivity()).enableButtonBar(true);
                                      //cant go forward only backwards if you havent started
                                      ((SetupWizardActivity)getActivity()).enableNextButton(false);
 
-                                      getThis().updateUI();
-
-                                        ((SetupWizardActivity)getActivity()).rewindToWifi();
+                                    getThis().updateUI();
+                                    dialog.dismiss();
+                                    ((SetupWizardActivity)getActivity()).rewindToWifi();
                                         
                                     }
                                 }).setCancelable(false).create();
