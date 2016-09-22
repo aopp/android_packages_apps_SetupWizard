@@ -738,9 +738,10 @@ public static class PwnixSetupFragment extends SetupPageFragment {
 
         public void showAlert(PwnixInstallState error){
             Log.d("ShowAlert","Called");
+            String message;
             switch(error){
                 case WIFI_ERROR:
-            String message = "This bundle is very large. \n\nTo avoid potential delays or extra data usage charges, use Wi-Fi only. ";
+            message = "This bundle is very large. \n\nTo avoid potential delays or extra data usage charges, use Wi-Fi only.";
 
             if (errorDialog == null ||!errorDialog.isShowing()) {
                 errorDialog = new AlertDialog.Builder(getActivity()).setTitle("Downloading a large bundle").setMessage(message).setPositiveButton("WIFI",
