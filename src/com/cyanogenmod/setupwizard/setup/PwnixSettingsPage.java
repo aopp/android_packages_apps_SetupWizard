@@ -223,6 +223,8 @@ public static class PwnixSetupFragment extends SetupPageFragment {
             boolean restoreCompletedState = prefs.getBoolean(PREFS_KEY, false);
             if (restoreCompletedState) {
              fragmentState = PwnixInstallState.PROVISIONED;
+             stateSaved = true;
+             receiverRegistered = true;
              handleUIState();
              Log.d("PROVISIONED", "UPDATING UI");
             }
@@ -1083,6 +1085,7 @@ public static class PwnixSetupFragment extends SetupPageFragment {
 
         @Override
         public void onReceive(Context context, Intent intent) {
+          /*** 
             if ( fragment != null ) {
                 if (fragment.isAdded()) { // make sure the fragment is attached before doing anything
                     Bundle extras = intent.getExtras();
@@ -1112,8 +1115,77 @@ public static class PwnixSetupFragment extends SetupPageFragment {
                         //the intent extra contains a string that is not a PwnixInstallState
                     }
                 } 
+            }***/
+            Bundle extras = intent.getExtras();
+            String words = extras.getString("stage");
+            int progress = extras.getInt("progress",-666);
+
+            if ( words != null ) {
+                //Toast.makeText(context, "Received: " + words, Toast.LENGTH_SHORT).show();
+                Log.d("Received State Intent: ", words);
+            }
+
+            if ( progress != -666 ) {
+                if (progress < 100 && progress >= 0) {
+                    fragment.updateDLProgress(progress);
+                    Log.d("Progress Update:",progress+"");
+                }
+                return; // done here stop wasting time
+            }
+
+            PwnixSetupFragment.PwnixInstallState replyState = null;
+            try {
+                if (words != null) {
+                    replyState = PwnixSetupFragment.PwnixInstallState.valueOf(words.toUpperCase()); //get ENUM
+                }
+            } catch (java.lang.IllegalArgumentException e) {
+                //the intent extra contains a string that is not a PwnixInstallState
+                return;
+            }
+
+            if(replyState == null){ //error somehow
+                return;
+            } else { //we good so log
+                Log.d("Received State Intent: ", words);
+            }
+
+
+            if(replyState == PwnixSetupFragment.PwnixInstallState.PROVISIONED){
+                SharedPreferences.Editor editor = context.getSharedPreferences(PwnixSetupFragment.PREFS, Context.MODE_PRIVATE).edit();
+                editor.putBoolean(PwnixSetupFragment.PREFS_KEY, true);
+                editor.apply();
+                Log.d("REC:SAVED STATE", "+++++++++++");
+            }
+
+            if(fragment == null){
+                Log.d("Receiver:","null fragment");
+                // no fragment nothing we can do but set provisioned if true so we dont miss the last step worst case
+
+                //if replystate == PROVISIONED then write setup to shared prefs
+                if(replyState == PwnixSetupFragment.PwnixInstallState.PROVISIONED) {
+                        SharedPreferences.Editor editor = context.getSharedPreferences(PwnixSetupFragment.PREFS, Context.MODE_PRIVATE).edit();
+                        editor.putBoolean(PwnixSetupFragment.PREFS_KEY, true);
+                        editor.apply();
+                        Log.d("SAVED STATE", "+++sleepy fragment tho++++++++");//this should literally be impossible.
+                }
+
+                return;
+            }
+
+
+            if(fragment.fragmentState == PwnixSetupFragment.PwnixInstallState.VERIFICATION_ERROR && replyState== PwnixSetupFragment.PwnixInstallState.DOWNLOADING){
+                return; // ignore the rebroadcast of Downloading when looping through verification error logic
+            }
+
+
+            fragment.setState(replyState);
+            Log.d("Receiver:","setState"+replyState.toString());
+
+            if (fragment.isAdded()) {
+                Log.d("Receiver:","fragment.updateUI()");
+                fragment.updateUI();
             }
         }
     }
-
 }
+
