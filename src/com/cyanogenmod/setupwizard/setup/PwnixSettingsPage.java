@@ -865,6 +865,13 @@ public static class PwnixSetupFragment extends SetupPageFragment {
              //Default to lock enable when not started or done.
              ((SetupWizardActivity)getActivity()).enableButtonBar(false);
 
+            //fix padding -- switch will override padding as needed 
+            step1Label.setPadding(15,0,0,0);
+            step2Label.setPadding(15,0,0,0);
+            step3Label.setPadding(15,0,0,0);
+            step4Label.setPadding(15,0,0,0);
+            step5Label.setPadding(15,0,0,0);
+            step6Label.setPadding(15,0,0,0);
 
             switch(fragmentState) {
                 case WIFI_ERROR:
