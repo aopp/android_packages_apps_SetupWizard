@@ -48,7 +48,7 @@
                 android:lineSpacingExtra="@dimen/setup_line_spacing"
                 android:paddingBottom="@dimen/summary_margin_bottom" />
 
-            <LinearLayout
+            <!--<LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -69,7 +69,58 @@
                     android:id="@+id/beginIcon"
                     android:layout_height="50sp"
                     android:layout_gravity="center"/>
-            </LinearLayout>
+            </LinearLayout>-->
+
+            <TextView
+                android:text="@string/completemessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/doneMessage"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:clickable="true"
+                android:background="@drawable/button_background"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/launchbutton"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:background="?android:attr/selectableItemBackground"
+                >
+                    <TextView
+                        android:id="@+id/text"
+                        android:text="@string/installmessage"
+                        android:textAppearance="?android:attr/textAppearanceButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:shadowColor="@color/button_bar_text_disabled"
+                        android:shadowDx="4"
+                        android:shadowDy="4"
+                        android:shadowRadius="4"
+                        android:textColor="#ffffff"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentStart="true" />
+                    <ImageView
+                        android:id="@+id/image"
+                        android:src="@drawable/ic_phone_install_pwnix"
+                        android:layout_width="20dp"
+                        android:tint="#ffffff"
+                        android:layout_height="20dp"
+                        android:layout_alignParentTop="false"
+                        android:layout_alignParentStart="false"
+                        android:layout_toEndOf="@id/text">
+                    </ImageView>
+                </RelativeLayout>
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"

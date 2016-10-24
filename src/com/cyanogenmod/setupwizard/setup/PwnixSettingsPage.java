@@ -150,9 +150,9 @@ public class PwnixSettingsPage extends SetupPage {
 
 public static class PwnixSetupFragment extends SetupPageFragment {
 
-        private static TextView step1Label, step2Label, step3Label, step4Label, step5Label, step6Label, fragmentBlurb; // Step Labels
+        private static TextView step1Label, step2Label, step3Label, step4Label, step5Label, step6Label, fragmentBlurb, doneMessage; // Step Labels
 
-        private static TextView launchButton; // "Button" to start process - textview with an onclick defined
+        private static RelativeLayout launchButton; // "Button" to start process - textview with an onclick defined
 
         private static TextView overallProgressLabel;
 
@@ -182,7 +182,6 @@ public static class PwnixSetupFragment extends SetupPageFragment {
 
         private static MyReceiver broadcastReceiver;
 
-        private static ImageView startIcon;
 
         private static TextView dlProgress;
 
@@ -314,7 +313,6 @@ public static class PwnixSetupFragment extends SetupPageFragment {
             step6PGB = null;
             overallProgressbar = null;
             //activity =null;
-            startIcon = null;
             dlProgress = null;
             //broadcastReceiver = null;
             super.onDestroyView();
@@ -358,7 +356,6 @@ public static class PwnixSetupFragment extends SetupPageFragment {
             step6PGB = null;
             overallProgressbar = null;
             //activity =null;
-            startIcon = null;
             dlProgress = null;
             //broadcastReceiver = null;
             //dialog=null;
@@ -408,43 +405,14 @@ public static class PwnixSetupFragment extends SetupPageFragment {
             overallProgressLabel.setVisibility(View.GONE);
 
             launchButton.setVisibility(View.VISIBLE);
-            startIcon.setVisibility(View.VISIBLE);
             doneImageview.setVisibility(View.GONE);
-
-            startIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_phone_install_pwnix));
-            startIcon.setClickable(true);
-            startIcon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //Testing
-                    //fragmentState=PwnixInstallState.DOWNLOADING;
-                    //handleUIState();
-
-                    getActivity().sendBroadcast(new Intent().setAction("com.pwnieexpress.android.pxinstaller.action.PROVISION"));
-                    activity.enableButtonBar(false);
-
-
-                    startIcon.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            //stop mashing the button dear lord
-                        }
-                    });
-                    startIcon.setClickable(false); //#overkill
-                }//end on click
-            });
 
             launchButton.setClickable(true);
             launchButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Testing
-                    // fragmentState=PwnixInstallState.DOWNLOADING;
-                    // handleUIState();
-
                     getActivity().sendBroadcast(new Intent().setAction("com.pwnieexpress.android.pxinstaller.action.PROVISION"));
                     activity.enableButtonBar(false);
-
 
                     launchButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -452,8 +420,8 @@ public static class PwnixSetupFragment extends SetupPageFragment {
                             //stop mashing the button dear lord
                         }
                     });
-                    launchButton.setClickable(false); //#overkill
-                }//end on click
+                    launchButton.setClickable(false);
+                }
             });
         }
 
@@ -461,7 +429,6 @@ public static class PwnixSetupFragment extends SetupPageFragment {
             if (!(fragmentState==PwnixInstallState.DOWNLOADING) || ((fragmentState==PwnixInstallState.DOWNLOADING) && animationRan)) { // normal if its not the downloading fragment (starting) OR it is but the animation has already run
                 // Hide Get Started Button since we are showing progress
                 launchButton.setVisibility(View.GONE);
-                startIcon.setVisibility(View.GONE);
                 launchButton.setClickable(false);
 
                 // Show progress bar and update
@@ -473,7 +440,6 @@ public static class PwnixSetupFragment extends SetupPageFragment {
             } else { // animated for first run
                 launchButton.setVisibility(View.GONE);
                 launchButton.setClickable(false);
-                startIcon.setVisibility(View.GONE);
 
                 overallProgressbar.setVisibility(View.VISIBLE);
                 overallProgressLabel.setVisibility(View.VISIBLE);
@@ -1017,25 +983,16 @@ public static class PwnixSetupFragment extends SetupPageFragment {
                 case PROVISIONED: // finish step 6
                     setOverallProgressbar(100);
                     finishStep(6);
-
-                    //step6Label.setTextColor(Color.GREEN); // wow that is bright nvm
                     step6Label.setText(R.string.step6past);
                     step6Label.invalidate();
 
                     doneImageview.setVisibility(View.VISIBLE);
                     doneImageview.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_black_24dp));
 
-                    overallProgressbar.setVisibility(View.GONE);
-                    launchButton.setVisibility(View.VISIBLE);
-                    launchButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            //your click is top priority I promise.
-                        }
-                    });
-                    launchButton.setText(R.string.complete);
-                    launchButton.setPadding(0,100,0,100);
+                    launchButton.setVisibility(View.GONE);
+                    doneMessage.setVisibility(View.VISIBLE);
 
+                    overallProgressbar.setVisibility(View.GONE);
                     overallProgressLabel.setVisibility(View.GONE);
 
                     //enjoy your freedom earthling
@@ -1053,11 +1010,11 @@ public static class PwnixSetupFragment extends SetupPageFragment {
 
         private void gatherUIElements() {
 
+            doneMessage = (TextView) mRootView.findViewById(R.id.doneMessage);
             dlProgress = (TextView) mRootView.findViewById(R.id.dlProgress);
-            startIcon = (ImageView) mRootView.findViewById(R.id.beginIcon);
             fragmentBlurb = (TextView) mRootView.findViewById(R.id.fragmentBlurb);
             overallProgressbar = (ProgressBar) mRootView.findViewById(R.id.overallProgress);
-            launchButton = (TextView) mRootView.findViewById(R.id.wikibutton);
+            launchButton = (RelativeLayout) mRootView.findViewById(R.id.launchbutton);
 
             stepContainer = (ScrollView) mRootView.findViewById(R.id.scrollView);
 

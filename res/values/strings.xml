@@ -96,6 +96,8 @@
     <string name="wikibutton">INSTALL</string>
     <string name="complete">Pwnix installation complete</string>
     <string name="overallprogresslabel">Installation progress:</string>
+    <string name="completemessage">Pwnix Installation Complete</string>
+    <string name="installmessage">Install Pwnix</string>
 
     <string name="pwnix_environment_setup">Pwnix environment setup</string>
     <string name="pwnix_environment_blurb">The next step in getting your device ready to pwn is setting up the Pwnix Environment. The download and installation process is fully automated. Please connect the device to a power source. This is a complex process, thank you for your patience.</string>
