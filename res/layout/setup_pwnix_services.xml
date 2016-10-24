@@ -79,6 +79,7 @@
                 android:layout_centerHorizontal="true"
                 android:id="@+id/doneMessage"
                 android:textAlignment="center"
+                android:paddingTop="@dimen/content_margin_top"
                 android:textSize="24sp"
                 android:visibility="gone" />
 
